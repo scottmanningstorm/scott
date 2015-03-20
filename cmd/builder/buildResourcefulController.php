@@ -1,5 +1,5 @@
 <?php 
-include ('ClassTemplatesomponents.php'); 
+include ('ClassTemplatesComponents.php'); 
 
 $file_name = $argv[1].'Controller'; 
 $file_name = ucfirst($file_name);

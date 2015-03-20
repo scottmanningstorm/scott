@@ -333,19 +333,19 @@ def create_repo(file_name)
   if (!file_name.match('Repository'))
       file_name = file_name+'Repository'
   end
-  system("php cmd/build/RepositoryBuilder.php #{file_name}")
+  system("php cmd/builder/buildRepository.php #{file_name}")
 end
 
 def create_model(file_name)
-  system("php cmd/build/ModelBuilder.php #{file_name}")
+  system("php cmd/builder/buildModel.php #{file_name}")
 end
 
 def create_controller(file_name, type='') 
-  system("php cmd/build/ControllerBuilder.php #{file_name} #{type}")
+  system("php cmd/builder/buildController.php #{file_name} #{type}")
 end
 
-def create_controller(file_name) 
-  system("php cmd/build/buildRController.php #{file_name}")
+def create_r_controller(file_name) 
+  system("php cmd/builder/buildResourcefulController.php #{file_name}")
 end
 
 def create_view(folder_name, type)
@@ -356,8 +356,8 @@ def create_view(folder_name, type)
   end
   puts("\nView file will be placed in #{path}#{folder_name}/ \nPlease name the view file...") 
   file_name = STDIN.gets.strip
-  system("php cmd/build/ViewBuilder.php #{folder_name} #{file_name} #{path}")
- 
+  system("php cmd/builder/buildView.php #{folder_name} #{file_name} #{path}")
+  
 end
 
 desc "Builds a Model"
@@ -407,7 +407,7 @@ desc "Builds a Controller"
 task :build_resourceful_controller do 
   file_name = ARGV[0]
   task file_name.to_s do ; end 
-  create_resourceful_controller(file_name)
+  create_r_controller(file_name)
 end
 
 desc "Adds a new Model. Switches avable: v, c, r. Creates new Model, View or Repository"
@@ -425,7 +425,7 @@ task :mvc do
     puts("--help Usage: rake mvc [file_name] [SWITCHES] \n")
     puts("")
     puts("'m' Builds a model.php file \n") 
-    puts("'r' Builds  a Repository.php file \n") #Build and check if we have model if no ask to build.
+    puts("'r' Builds a Repository.php file \n") #Build and check if we have model if no ask to build.
     puts("'v' Builds a public View.php file \n") #Check 
     puts("'V' Builds an admin View.php file \n") #Check 
     puts("'c' Builds a Controller.php file \n") #Just build controller.
